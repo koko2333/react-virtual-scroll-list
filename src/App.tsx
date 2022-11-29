@@ -22,17 +22,17 @@ function App() {
   return (
     <div className="App">
       <div className="list">
-        {VirtualScrollList<string>({
-          dataList,
-          renderItem: (item, index) => <span>{item}</span>,
-          onScrollBottom: () => {
+        <VirtualScrollList
+          dataList={dataList}
+          renderItem={(item, index) => <span>{item}</span>}
+          onScrollBottom={() => {
             handleOnScrollBottom();
-          },
-          onScroll: (e) => {
+          }}
+          onScroll={(e) => {
             console.log(e);
-          },
-          offset:60
-        })}
+          }}
+          offset={60}
+        />
       </div>
     </div>
   );

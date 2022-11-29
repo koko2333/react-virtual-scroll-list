@@ -15,7 +15,7 @@ const getRenderList: <T>(
 
 interface VirtualScrollListProps<T> {
   dataList: T[]; // 所有数据
-  renderItem: (item: any, index: number) => JSX.Element; // 渲染每一项的方法
+  renderItem: (item: T, index: number) => JSX.Element; // 渲染每一项的方法
   offset?: number; // 是否触底的距离
   onScroll?: (e: React.UIEvent<HTMLDivElement>) => void; // 滚动时的回调
   onScrollBottom?: () => void; // 触底时的回调
@@ -36,8 +36,13 @@ const getIsScrollToBottom = (offset: number) => {
   return false;
 };
 
-function VirtualScrollList<T>(props: VirtualScrollListProps<T>) {
-  const { dataList, renderItem, onScrollBottom, offset = 50 } = props;
+function VirtualScrollList<T>({
+  dataList,
+  renderItem,
+  onScrollBottom,
+  onScroll,
+  offset = 50,
+}: VirtualScrollListProps<T>) {
   const [renderList, setRenderList] = useState<T[]>([]); // 需要渲染的数据
   const [offSetY, setOffSetY] = useState<number>(0); // 向下的偏移量
 
@@ -66,7 +71,6 @@ function VirtualScrollList<T>(props: VirtualScrollListProps<T>) {
   };
 
   const handleTableScroll = (e: React.UIEvent<HTMLDivElement>): void => {
-    const { onScroll } = props;
     const scrollTop: number = (e.target as HTMLDivElement).scrollTop;
     const offSetY: number = scrollTop - (scrollTop % rowNodeHeight.current); // 卷起的高度减去卷起高度和单项高度的余数
     const offsetItemNumber: number = Math.floor(
