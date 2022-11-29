@@ -1,0 +1,10 @@
+.virtual_scroll_container {
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+.virtual_scroll_row{
+    text-align: left;
+    padding: 20px 10px;
+}
