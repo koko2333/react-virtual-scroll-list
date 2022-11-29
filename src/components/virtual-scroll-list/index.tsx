@@ -36,9 +36,9 @@ const getIsScrollToBottom = (offset: number) => {
   return false;
 };
 
-function VirtualScrollList(props: VirtualScrollListProps<string>) {
+function VirtualScrollList<T>(props: VirtualScrollListProps<T>) {
   const { dataList, renderItem, onScrollBottom, offset = 50 } = props;
-  const [renderList, setRenderList] = useState<string[]>([]); // 需要渲染的数据
+  const [renderList, setRenderList] = useState<T[]>([]); // 需要渲染的数据
   const [offSetY, setOffSetY] = useState<number>(0); // 向下的偏移量
 
   // 不会触发渲染的变量推荐用useRef进行维护
@@ -132,7 +132,7 @@ function VirtualScrollList(props: VirtualScrollListProps<string>) {
         className="virtual_scroll"
         style={{ transform: `translateY(${offSetY}px)` }}
       >
-        {renderList.map((item: string, index) => (
+        {renderList.map((item: T, index) => (
           <div
             className="virtual_scroll_row"
             key={"virtual_scroll_row" + index}
